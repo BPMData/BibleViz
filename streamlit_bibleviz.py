@@ -5,9 +5,10 @@ import streamlit as st
 import requests
 
 st.set_page_config(page_title="Bible Finder", page_icon='✝️📖🕊️', layout='wide')
-st.title("Generate a custom plot of text mentions in the New Testament Bible!")
+st.title("Search the New Testament Bible and see your results!")
 
-url='https://drive.google.com/uc?id=1rlqhBEooyH8oqjAwgsVmLkAzqwQsr3Lk'
+# url='https://drive.google.com/uc?id=1rlqhBEooyH8oqjAwgsVmLkAzqwQsr3Lk'
+url = 'https://raw.githubusercontent.com/BPMData/BibleViz/8b751bd1a07ba631785d86295d12c40d22d348a3/nt_bible_clean.txt'
 
 response = requests.get(url)
 book = response.text
@@ -81,8 +82,8 @@ chapter_names = ['Matthew', 'Mark', 'Luke', 'John', 'Acts', 'Romans', '', '', ''
 
 chapter_xs = tuple(chapter_positions.values())
 
-user_input = st.text_input("Please enter one or more names, words or phrases you'd like to search the King James New Testament Bible for. "
-                          "Please separate each entry with a comma and a space.",
+user_input = st.text_input("Please enter one or more names, words or phrases you'd like to search for in the King James New Testament Bible."
+                          "Please separate each entry with a comma.",
                           placeholder='For example: Jesus, Mary, Paul, Peter, Judas, love thy neighbour, poor',
                           key = 'text_area_box',
                           help="Capitalization doesn't matter, but spelling does. Remember the King James Bible uses British spellings,"
@@ -167,9 +168,7 @@ if characters:
         titlefont=dict(color='maroon'),
         showlegend=False,
         xaxis_title="Position in Bible (%)",
-        xaxis_color='maroon',
         yaxis_title="",
-        yaxis_color='maroon',
         hoverlabel=dict(font_size=16),
         hovermode="closest",
 
@@ -197,6 +196,11 @@ if characters:
             tickfont=dict(
                 color='maroon'
             )
-        )
-    )
+        ),
+        xaxis=dict(
+            tickfont=dict(
+                color='maroon'
+            ),
+            titlefont=dict(color='maroon')
+    ))
     st.plotly_chart(fig, use_container_width=True, theme='streamlit')
