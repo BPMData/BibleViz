@@ -11,8 +11,7 @@ fig = go.Figure()
 with open(r"C:\PythonProjects\BibleViz\nt_bible_clean.txt", "r") as file:
     text = file.read()
 
-characters = ["Jesus", "Christ", "Peter", "Paul",
-              'OBAMA', "John the Baptist", "John",  "Mary Magdalene", "Mary", "Judas Iscariot", 'Judas', "Pilate", "Matthew", "Mark", "Luke", "James", "Thomas", "Satan"]
+characters = ["Rich", "OBAMA", "Poor", "Abortion", "Homosexuality", "Hate", "Love",  "Kindness", "Peace", "War", 'Lust','Gluttony','Greed','Sloth','Wrath','Envy','Pride','God']
 colors = px.colors.qualitative.Plotly
 
 chapters = [
@@ -68,6 +67,10 @@ for character in characters:
         # Remove the mentions of "Judas Iscariot" from "Judas"
         character_positions["Judas"] = [pos for pos in character_positions["Judas"] if
                                        pos not in character_positions["Judas Iscariot"]]
+        if character == "God":
+            # If the character is "God", also search for "Lord", "Almighty"
+            character_positions[character] = [m.start() for m in
+                                              re.finditer(rf"\b{'God'}\b|\b{'Lord'}\b|\b{'Almighty'}\b", text, re.IGNORECASE)]
     else:
         character_positions[character] = [m.start() for m in re.finditer(rf"\b{character}\b", text, re.IGNORECASE)]
 
@@ -100,9 +103,6 @@ for i in range(len(chapters) - 1):
 # Color in the last book, Revelations, independently:
 fig.add_shape(type="rect", xref="x", yref="paper", x0=chapter_xs[26], y0=0, x1=100, y1=1,
               fillcolor=firstcolor, opacity=0.25, line_width=0)
-#
-# for i in range(len(chapter_names)):
-#     fig.add_annotation(x=chapter_xs[i], y=1.05, yref="paper", text=chapter_names[i], showarrow=False)
 
 #Trying to add chapter names and lines at the same time:
 
