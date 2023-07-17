@@ -4,7 +4,7 @@ import plotly.express as px
 import streamlit as st
 import requests
 
-st.set_page_config(page_title="Bible Finder", page_icon='✝️📖🕊️', layout='wide')
+st.set_page_config(page_title="Bible Finder", page_icon='📖️', layout='wide')
 st.title("Search the New Testament Bible and see your results!")
 
 # url='https://drive.google.com/uc?id=1rlqhBEooyH8oqjAwgsVmLkAzqwQsr3Lk'
