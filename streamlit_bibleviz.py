@@ -130,7 +130,6 @@ if characters:
             except KeyError:
                 character_positions[character] = [m.start() for m in re.finditer(rf"\b{character}\b", text, re.IGNORECASE)]
         elif character == "Satan":
-            # If the character is "Peter", also search for "Simon"
             character_positions[character] = [m.start() for m in
                                               re.finditer(rf"\b{'Satan'}\b|\b{'the devil'}\b|\b{'tempter'}\b", text, re.IGNORECASE)]
         else:
