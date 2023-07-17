@@ -83,7 +83,7 @@ chapter_names = ['Matthew', 'Mark', 'Luke', 'John', 'Acts', 'Romans', '', '', ''
 chapter_xs = tuple(chapter_positions.values())
 
 user_input = st.text_input("Please enter one or more names, words or phrases you'd like to search for in the King James New Testament Bible."
-                          "Please separate each entry with a comma.",
+                          " Please separate each entry with a comma.",
                           placeholder='For example: Jesus, Mary, Paul, Peter, Judas, love thy neighbour, poor',
                           key = 'text_area_box',
                           help="Capitalization doesn't matter, but spelling does. Remember the King James Bible uses British spellings,"
@@ -129,6 +129,10 @@ if characters:
                                                 pos not in character_positions["Judas Iscariot"]]
             except KeyError:
                 character_positions[character] = [m.start() for m in re.finditer(rf"\b{character}\b", text, re.IGNORECASE)]
+        elif character == "Satan":
+            # If the character is "Peter", also search for "Simon"
+            character_positions[character] = [m.start() for m in
+                                              re.finditer(rf"\b{'Satan'}\b|\b{'the devil'}\b|\b{'tempter'}\b", text, re.IGNORECASE)]
         else:
             character_positions[character] = [m.start() for m in re.finditer(rf"\b{character}\b", text, re.IGNORECASE)]
 
