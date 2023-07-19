@@ -47,11 +47,11 @@ def add_line_breaks(text, max_line_length):
 
 fig = go.Figure()
 
-# with open(r"C:\PythonProjects\BibleViz\nt_bible_clean.txt", "r") as file:
-#     text = file.read()
+with open(r"C:\PythonProjects\BibleViz\nt_bible_clean.txt", "r") as file:
+    text = file.read()
 
 characters = ["Jesus", "Christ", "Peter", "Paul",
-              'OBAMA', 'blessed are the', 'love thy neighbour', "John the Baptist", "John",  "Mary Magdalene",  "Judas Iscariot", 'Judas', "Pilate", "Matthew", "Mark", "Luke", "James", "Thomas", "Satan"]
+              'OBAMA', 'blessed are the', 'love thy neighbour', "John the Baptist", "John",  "Mary Magdalene", "Mary",  "Judas Iscariot", 'Judas', "Pilate", "Matthew", "Mark", "Luke", "James", "Thomas", "Satan"]
 # characters = ["ogybogy"]
 
 
@@ -138,12 +138,18 @@ for spot, character in enumerate(characters):
     percentages = [100 * i / len(text) for i in indices]
     fig.add_trace(go.Scatter(x=percentages, y=[character]*len(indices), mode='markers', name=character, text=paragraphs,
                              hovertemplate="%{text}<extra></extra>", marker=dict(color=colors[spot % len(colors)])))
+    fig.add_annotation(xref='paper', x=1.001, xanchor='left', yref='y', y=character, \
+        text=len(indices), showarrow=False, font=dict(color='maroon'))
 
 # This if/else string is NOT WHAT what made show nobody work, you just needed the y-dict categoryorder=array, categoryarray=characters arguments
 #     if len(indices) == 0:
 #         fig.add_trace(go.Scatter(x=[], y=[character for _ in range(1)], mode='markers', name=character, text=sentences, hovertemplate="%{text}<extra></extra>", marker=dict(color=colors[spot % len(colors)])))
 #     else:
 #         fig.add_trace(go.Scatter(x=percentages, y=[character]*len(indices), mode='markers', name=character, text=sentences, hovertemplate="%{text}<extra></extra>", marker=dict(color=colors[spot % len(colors)])))
+
+# Add the word "Totals" separately:
+fig.add_annotation(xref='paper', yref='paper', x=.995, y=1.05, \
+        text='Totals', xanchor='left', showarrow=False, font=dict(color='maroon'))
 
 firstcolor = "mediumseagreen"
 secondcolor = "peachpuff"

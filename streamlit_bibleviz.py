@@ -86,9 +86,13 @@ user_input = st.text_input("Please enter one or more names, words or phrases you
                           " Please separate each entry with a comma.",
                           placeholder='For example: Jesus, Mary, Paul, Peter, Judas, love thy neighbour, poor',
                           key = 'text_area_box',
-                          help="Capitalization doesn't matter, but spelling does. Remember the King James Bible uses British spellings,"
-                               "such as neighbour instead of neighbor.",
-                           value='Jesus, Christ, Peter, Paul, John the Baptist, John, Mary Magdalene, Judas Iscariot, Judas, Pilate, Matthew, Mark, Luke, James, Thomas, Satan')
+                          help="Capitalization doesn't matter, but spelling does. Remember the King James Bible uses British spellings, "
+                               "such as neighbour instead of neighbor. Certain characters are handled in a unique fashion; searching Satan will also search for the devil, for example, and searching for Peter will also search for Simon. Searching both Mary and Mary Magdalene ensures that mentions of Mary Magdalene will NOT show up as mentions of Mary."
+                           " Searching for Mark also brings up the actual word 'mark': see Revelations.",
+                           value='Jesus, Christ, Peter, Paul, John the Baptist, John, Mary Magdalene, Judas Iscariot, Judas, Pilate, Matthew, Mark, Luke, James, Thomas, Satan, Abortion')
+
+st.info("This visualization is best viewed on an actual computer, or a tablet. Hover over the graph and click the diagonal double arrows to view in fullscreen!")
+
 characters = []
 if user_input:
     characters = user_input.split(",")
@@ -145,6 +149,12 @@ if characters:
         percentages = [100 * i / len(text) for i in indices]
         fig.add_trace(go.Scatter(x=percentages, y=[character]*len(indices), mode='markers', name=character, text=paragraphs,
                                  hovertemplate="%{text}<extra></extra>", marker=dict(color=colors[spot % len(colors)])))
+        fig.add_annotation(xref='paper', x=1.001, xanchor='left', yref='y', y=character, \
+                           text=len(indices), showarrow=False, font=dict(color='maroon'))
+
+    # Add the word "Totals" separately:
+    fig.add_annotation(xref='paper', yref='paper', x=.995, y=1.05, \
+                       text='Totals', xanchor='left', showarrow=False, font=dict(color='maroon'))
 
     for i in range(len(chapters) - 1):
         fig.add_shape(type="rect", xref="x", yref="paper", x0=chapter_xs[i], y0=0, x1=chapter_xs[i + 1], y1=1, fillcolor=firstcolor if i % 2 == 0 else secondcolor, opacity=0.15, line_width=0)
@@ -207,3 +217,5 @@ if characters:
             titlefont=dict(color='maroon')
     ))
     st.plotly_chart(fig, use_container_width=True, theme='streamlit')
+
+st.info("This version of the New Testament was pulled from [Project Gutenberg](https://www.gutenberg.org/ebooks/10).")
