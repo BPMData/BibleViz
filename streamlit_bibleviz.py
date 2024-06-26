@@ -89,7 +89,7 @@ user_input = st.text_input("Please enter one or more names, words or phrases you
                           help="Capitalization doesn't matter, but spelling does. Remember the King James Bible uses British spellings, "
                                "such as neighbour instead of neighbor. Certain characters are handled in a unique fashion; searching Satan will also search for the devil, for example, and searching for Peter will also search for Simon. Searching both Mary and Mary Magdalene ensures that mentions of Mary Magdalene will NOT show up as mentions of Mary."
                            " Searching for Mark also brings up the actual word 'mark': see Revelations.",
-                           value='Jesus, Christ, Peter, Paul, John the Baptist, John, Mary Magdalene, Judas Iscariot, Judas, Pilate, Matthew, Mark, Luke, James, Thomas, Satan, Abortion')
+                           value='Jesus, Christ, Peter, Paul, John the Baptist, John, Mary Magdalene, Judas Iscariot, Judas, Pilate, Matthew, Mark, Luke, James, Thomas, Satan')
 
 st.info("This visualization is best viewed on an actual computer, or a tablet. Hover over the graph and click the diagonal double arrows to view in fullscreen!")
 
