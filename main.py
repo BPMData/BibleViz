@@ -11,8 +11,7 @@ fig = go.Figure()
 with open(r"C:\PythonProjects\BibleViz\nt_bible_clean.txt", "r") as file:
     text = file.read()
 
-characters = ["Jesus", "Christ", "Peter", "Paul",
-              'OBAMA', "John the Baptist", "John",  "Mary Magdalene", "Mary", "Judas Iscariot", 'Judas', "Pilate", "Matthew", "Mark", "Luke", "James", "Thomas", "Satan"]
+characters = ["Jesus", "Christ", "Peter", "Paul", "John the Baptist", "John",  "Mary Magdalene", "Mary", "Judas Iscariot", 'Judas', "Pilate", "Matthew", "Mark", "Luke", "James", "Thomas", "Satan"]
 colors = px.colors.qualitative.Plotly
 
 chapters = [
